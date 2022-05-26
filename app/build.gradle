@@ -17,9 +17,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "STAR_WARS_URL", "\"https://swapi.dev/api/\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "STAR_WARS_URL", "\"https://swapi.dev/api/\""
         }
     }
     compileOptions {
