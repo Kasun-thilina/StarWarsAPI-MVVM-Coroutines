@@ -1,0 +1,115 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorWhite</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="SubActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorWhite</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="ProgressbarStyle" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:windowBackground">@color/colorTransparent</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!--    custom dialog style-->
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@color/colorTransparent</item>
+        <item name="android:bottomDark">@color/colorTransparent</item>
+        <item name="android:bottomMedium">@color/colorTransparent</item>
+        <item name="android:centerBright">@color/colorTransparent</item>
+        <item name="android:centerDark">@color/colorTransparent</item>
+        <item name="android:centerMedium">@color/colorTransparent</item>
+        <item name="android:fullBright">@color/colorTransparent</item>
+        <item name="android:fullDark">@color/colorTransparent</item>
+        <item name="android:topBright">@color/colorTransparent</item>
+        <item name="android:topDark">@color/colorTransparent</item>
+    </style>
+
+    <style name="TitleTextBlackStyle">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+    </style>
+
+    <style name="PrimaryButton">
+        <!--        <item name="android:background">@drawable/bg_rounded_border_btn</item>-->
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="PrimaryButtonStyle" parent="PrimaryButton">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingEnd">48dp</item>
+        <item name="android:paddingStart">48dp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">1dp</item>
+    </style>
+
+    <style name="DateTextStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontWeight" tools:targetApi="o">100</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TextNormalStyle">
+        <item name="android:textColor">@color/colorGreyOne</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextFadedStyle">
+        <item name="android:textColor">@color/colorGreyTwo</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextNormalStyle.Size16" parent="TextNormalStyle">
+        <item name="android:textColor">@color/colorGreyTwo</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextNormalStyle.Size14" parent="TextNormalStyle">
+        <item name="android:textColor">@color/colorGreyTwo</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="editTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <!--        <item name="android:background">@drawable/bg_textbox</item>-->
+        <!-- <item name="android:theme">@style/TextInputLayoutTheme</item>-->
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+    </style>
+
+</resources>
