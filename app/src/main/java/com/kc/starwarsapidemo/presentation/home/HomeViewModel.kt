@@ -17,18 +17,26 @@ import kotlinx.coroutines.withContext
 class HomeViewModel(private val planetRepository: PlanetRepository) : ViewModel() {
     val planetListLiveData = MutableLiveData<Resource<PlanetsResponse>>()
     val selectedPlanetLiveData = MutableLiveData<Planet>()
-
     val openPaneLiveData = MutableLiveData<Unit>()
     val closePaneLiveData = MutableLiveData<Unit>()
 
+    var currentPage: Int = 1
+    var isLoading: Boolean = false
+    var isLastPage: Boolean = false
     fun getPlanetsList() {
         planetListLiveData.setLoading()
+        isLoading = true
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val list = planetRepository.getPlanets(1)
+                    isLoading = false
+                    val list = planetRepository.getPlanets(currentPage)
+                    if (list.next == null) {
+                        isLastPage = true
+                    }
                     planetListLiveData.setSuccess(list)
                 } catch (throwable: Throwable) {
+                    isLoading = false
                     planetListLiveData.setError(throwable.message)
                 }
             }

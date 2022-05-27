@@ -91,30 +91,29 @@ private fun networkInterceptor(): Interceptor = object : Interceptor {
     }
 }
 
-private fun offlineInterceptor(context: Context): Interceptor = Interceptor { chain ->
-    var request = chain.request()
+private fun offlineInterceptor(context: Context): Interceptor = object : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        var request = chain.request()
 
-    if (!hasNetwork(context)!!) {
-        val cacheControl = CacheControl.Builder()
-            .maxStale(7, TimeUnit.DAYS)
-            .build()
+        if (!hasNetwork(context)!!) {
+            val cacheControl = CacheControl.Builder()
+                .maxStale(7, TimeUnit.DAYS)
+                .build()
 
-        request = request.newBuilder()
-            .removeHeader(HEADER_PRAGMA)
-            .removeHeader(HEADER_CACHE_CONTROL)
-            .cacheControl(cacheControl)
-            .build()
+            request = request.newBuilder()
+                .removeHeader(HEADER_PRAGMA)
+                .removeHeader(HEADER_CACHE_CONTROL)
+                .cacheControl(cacheControl)
+                .build()
+        }
+        return chain.proceed(request)
     }
-    chain.proceed(request)
 }
 
 fun hasNetwork(context: Context): Boolean? {
     var isConnected: Boolean? = false
     val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val nw = connectivityManager.activeNetwork ?: return false
-    val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-
     val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
     if (activeNetwork != null && activeNetwork.isConnected) {
         isConnected = true

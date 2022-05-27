@@ -8,7 +8,7 @@ import com.kc.starwarsapidemo.R
 import com.kc.starwarsapidemo.data.model.Planet
 
 class PlanetsAdapter(var context: Context) : RecyclerView.Adapter<PlanetViewHolder>() {
-    private var planet: List<Planet>? = null
+    private var planets: MutableList<Planet>? = mutableListOf()
     private var selectedIndex = -1
     private var onTopicClick: ((Planet, Int) -> Unit)? = null
 
@@ -17,24 +17,24 @@ class PlanetsAdapter(var context: Context) : RecyclerView.Adapter<PlanetViewHold
             LayoutInflater.from(parent.context).inflate(R.layout.item_planet, parent, false)
         )
 
-    override fun getItemCount(): Int = planet?.size ?: 0
+    override fun getItemCount(): Int = planets?.size ?: 0
 
     override fun onBindViewHolder(holder: PlanetViewHolder, position: Int) {
-        planet?.get(position)?.let { book ->
+        planets?.get(position)?.let { book ->
             holder.bind(book, selectedIndex == position, context) {
                 onTopicClick?.invoke(book, position)
             }
         }
     }
 
-    fun updatePlanets(books: List<Planet>) {
-        this.planet = books
+    fun updatePlanets(planetsList: MutableList<Planet>) {
+        planets?.addAll(planetsList)
         notifyDataSetChanged()
     }
 
     fun updateSelectedPosition(index: Int) {
-        val previousSelectedIndex = this.selectedIndex
-        this.selectedIndex = index
+        val previousSelectedIndex = selectedIndex
+        selectedIndex = index
         notifyItemChanged(previousSelectedIndex)
         notifyItemChanged(index)
     }

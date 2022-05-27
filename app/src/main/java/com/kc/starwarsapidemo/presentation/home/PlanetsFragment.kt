@@ -2,6 +2,7 @@ package com.kc.starwarsapidemo.presentation.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.kc.starwarsapidemo.data.model.Planet
 import com.kc.starwarsapidemo.data.model.PlanetsResponse
 import com.kc.starwarsapidemo.databinding.FragmentPlanetsBinding
 import com.kc.starwarsapidemo.presentation.home.adapter.PlanetsAdapter
+import com.kc.starwarsapidemo.util.PaginationScrollListener
 import com.kc.starwarsapidemo.util.base.BaseFragment
 import com.kc.starwarsapidemo.util.extensions.dialog.alertDialog
 import com.kc.starwarsapidemo.util.extensions.gone
@@ -21,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class PlanetsFragment : BaseFragment() {
     private lateinit var binding: FragmentPlanetsBinding
     private val homeViewModel: HomeViewModel by sharedViewModel()
-    private lateinit var planetsAdapter: PlanetsAdapter
     private lateinit var adapter: PlanetsAdapter
     private val layoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(context).apply {
@@ -43,39 +44,42 @@ class PlanetsFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun init() {
-//        homeViewModel.getPlanetsList()
-//        planetsAdapter = PlanetsAdapter(requireContext(),mutableListOf()) { planet, index ->
-//            selectedPlanetPosition = index
-//            planetsAdapter.updateSelectedPosition(index)
-//            layoutManager.scrollToPositionWithOffset(index, 0)
-//            onPlanetSelected(planet)
-//        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.planetListLiveData.observe(viewLifecycleOwner) { observeFetchPlanets(it) }
-        init()
         adapter.setTopicClickListener(onTopicClick)
         binding.rvPlanets.layoutManager = layoutManager
         binding.rvPlanets.adapter = adapter
+        binding.rvPlanets.addOnScrollListener(object : PaginationScrollListener(layoutManager, 10) {
+            override fun loadMoreItems() {
+                homeViewModel.currentPage++
+                homeViewModel.getPlanetsList()
+            }
+
+            override fun isLastPage(): Boolean {
+                return homeViewModel.isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return homeViewModel.isLoading
+            }
+
+        })
 
         if (savedInstanceState != null) {
             this.selectedPlanetPosition = savedInstanceState.getInt(SELECTED_POSITION)
-//            planetsAdapter.updateSelectedPosition(this.selectedPlanetPosition)
+            adapter.updateSelectedPosition(this.selectedPlanetPosition)
         }
     }
 
     private val onTopicClick: (Planet, Int) -> Unit = { book, position ->
         this.selectedPlanetPosition = position
         adapter.updateSelectedPosition(position)
-//        layoutManager.scrollToPositionWithOffset(position, 0)
         onPlanetSelected(book)
     }
 
     private fun onPlanetSelected(planet: Planet) {
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             homeViewModel.selectPlanet(planet)
             homeViewModel.closePane()
         }, 300)
@@ -96,14 +100,7 @@ class PlanetsFragment : BaseFragment() {
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     binding.progress.gone()
-                    adapter.updatePlanets(it.data?.results!!)
-//                    if (!it.data?.results.isNullOrEmpty()) {
-//                        planetsAdapter.apply {
-//                            planets.clear()
-//                            planets.addAll(it.data?.results!!)
-//                            notifyDataSetChanged()
-//                        }
-//                    }
+                    adapter.updatePlanets(it.data?.results!!.toMutableList())
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
