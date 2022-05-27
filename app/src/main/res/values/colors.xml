@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#fb7477</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccentDark">#00A998</color>
     <color name="colorPrimary">#565ad9</color>
     <color name="colorPrimaryDark">#2c31c3</color>
     <color name="colorBackground">#f1f1f1</color>
@@ -15,6 +16,7 @@
     <color name="colorGreyThree">#99cfcfd2</color>
     <color name="colorRipple">#DDDDDD</color>
     <color name="colorRed">#f44336</color>
+    <color name="black_transparent">#0A000000</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

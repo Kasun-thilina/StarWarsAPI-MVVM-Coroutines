@@ -2,5 +2,11 @@
     <string name="app_name">Star Wars API demo</string>
 
     <string name="msg_offline">Offline Mode!</string>
+    <string name="swapi">The Star Wars API</string>
+
+    <string name="planet_details">Planet Details</string>
+    <string name="orbital_period">Orbital Period :</string>
+    <string name="gravity">Gravity :</string>
+
 
 </resources>

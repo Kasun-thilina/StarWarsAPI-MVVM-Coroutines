@@ -3,6 +3,7 @@ package com.kc.starwarsapidemo.presentation.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kc.starwarsapidemo.data.model.Planet
 import com.kc.starwarsapidemo.data.model.PlanetsResponse
 import com.kc.starwarsapidemo.data.repository.PlanetRepository
 import com.kc.starwarsapidemo.util.extensions.setError
@@ -15,6 +16,10 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel(private val planetRepository: PlanetRepository) : ViewModel() {
     val planetListLiveData = MutableLiveData<Resource<PlanetsResponse>>()
+    val selectedPlanetLiveData = MutableLiveData<Planet>()
+
+    val openPaneLiveData = MutableLiveData<Unit>()
+    val closePaneLiveData = MutableLiveData<Unit>()
 
     fun getPlanetsList() {
         planetListLiveData.setLoading()
@@ -29,6 +34,19 @@ class HomeViewModel(private val planetRepository: PlanetRepository) : ViewModel(
             }
         }
     }
+
+    fun selectPlanet(planet: Planet) {
+        selectedPlanetLiveData.value = planet
+    }
+
+    fun openPane() {
+        openPaneLiveData.value = Unit
+    }
+
+    fun closePane() {
+        closePaneLiveData.value = Unit
+    }
+
 }
 
 

@@ -6,13 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".presentation.home.HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <androidx.slidingpanelayout.widget.SlidingPaneLayout
+        android:id="@+id/slidingPaneLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <fragment
+            android:id="@+id/fragmentPlanet"
+            android:name="com.kc.starwarsapidemo.presentation.home.PlanetsFragment"
+            android:layout_width="300dp"
+            android:layout_height="match_parent" />
+
+        <fragment
+            android:id="@+id/fragmentDetail"
+            android:name="com.kc.starwarsapidemo.presentation.home.PlanetDetailsFragment"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

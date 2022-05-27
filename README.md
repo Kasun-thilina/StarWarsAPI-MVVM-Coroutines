@@ -10,6 +10,7 @@ Developed Using
 * Retrofit2 for Network Requests
 * Dependency injection using koin
 * Kotlin Extensions
+* Androidx sliding panel layout
 
 Developed by Kasun Thilina
 <br>
