@@ -30,6 +30,7 @@ class PlanetsFragment : BaseFragment() {
         }
     }
     private var selectedPlanetPosition = -1
+    private var shouldClear = false
 
     companion object {
         private const val SELECTED_POSITION = "selected_position"
@@ -48,23 +49,31 @@ class PlanetsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.planetListLiveData.observe(viewLifecycleOwner) { observeFetchPlanets(it) }
         adapter.setTopicClickListener(onTopicClick)
-        binding.rvPlanets.layoutManager = layoutManager
-        binding.rvPlanets.adapter = adapter
-        binding.rvPlanets.addOnScrollListener(object : PaginationScrollListener(layoutManager, 10) {
-            override fun loadMoreItems() {
-                homeViewModel.currentPage++
+        binding.apply {
+            rvPlanets.layoutManager = layoutManager
+            rvPlanets.adapter = adapter
+            rvPlanets.addOnScrollListener(object : PaginationScrollListener(layoutManager, 10) {
+                override fun loadMoreItems() {
+                    homeViewModel.getPlanetsList()
+                }
+
+                override fun isLastPage(): Boolean {
+                    return homeViewModel.isLastPage
+                }
+
+                override fun isLoading(): Boolean {
+                    return homeViewModel.isLoading
+                }
+
+            })
+            pullToRefresh.setOnRefreshListener {
+                homeViewModel.currentPage = 1
+                homeViewModel.isLastPage = false
                 homeViewModel.getPlanetsList()
+                adapter.clearPlanets()
             }
+        }
 
-            override fun isLastPage(): Boolean {
-                return homeViewModel.isLastPage
-            }
-
-            override fun isLoading(): Boolean {
-                return homeViewModel.isLoading
-            }
-
-        })
 
         if (savedInstanceState != null) {
             this.selectedPlanetPosition = savedInstanceState.getInt(SELECTED_POSITION)
@@ -99,6 +108,7 @@ class PlanetsFragment : BaseFragment() {
                 }
                 ResourceState.SUCCESS -> {
                     hideProgress()
+                    binding.pullToRefresh.isRefreshing = false
                     binding.progress.gone()
                     adapter.updatePlanets(it.data?.results!!.toMutableList())
                 }

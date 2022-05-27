@@ -33,6 +33,8 @@ class HomeViewModel(private val planetRepository: PlanetRepository) : ViewModel(
                     val list = planetRepository.getPlanets(currentPage)
                     if (list.next == null) {
                         isLastPage = true
+                    } else {
+                        currentPage++
                     }
                     planetListLiveData.setSuccess(list)
                 } catch (throwable: Throwable) {

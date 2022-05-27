@@ -32,6 +32,11 @@ class PlanetsAdapter(var context: Context) : RecyclerView.Adapter<PlanetViewHold
         notifyDataSetChanged()
     }
 
+    fun clearPlanets() {
+        planets?.clear()
+        notifyDataSetChanged()
+    }
+
     fun updateSelectedPosition(index: Int) {
         val previousSelectedIndex = selectedIndex
         selectedIndex = index
