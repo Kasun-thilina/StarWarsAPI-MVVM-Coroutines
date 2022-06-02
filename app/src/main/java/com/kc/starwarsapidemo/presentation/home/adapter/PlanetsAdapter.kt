@@ -23,6 +23,7 @@ class PlanetsAdapter(var context: Context) : RecyclerView.Adapter<PlanetViewHold
 
     override fun getItemCount(): Int = planets?.size ?: 0
 
+
     override fun onBindViewHolder(holder: PlanetViewHolder, position: Int) {
         holder.setIsRecyclable(false)
         planets?.get(position)?.let { book ->
@@ -45,8 +46,9 @@ class PlanetsAdapter(var context: Context) : RecyclerView.Adapter<PlanetViewHold
     fun updateSelectedPosition(index: Int) {
         val previousSelectedIndex = selectedIndex
         selectedIndex = index
-        notifyItemChanged(previousSelectedIndex)
-        notifyItemChanged(index)
+//        notifyItemChanged(previousSelectedIndex)
+//        notifyItemChanged(index)
+        notifyDataSetChanged()
     }
 
     fun setTopicClickListener(onTopicClick: ((Planet, Int) -> Unit)?) {
