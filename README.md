@@ -19,4 +19,5 @@ Developed by Kasun Thilina
 -Stackoverflow: https://stackoverflow.com/users/7826205/kasun-thilina
 
 ##DEMO
-![](demo.gif)
+<br>
+<img src="demo.gif" width="250" height="250"/>
