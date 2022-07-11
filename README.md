@@ -20,4 +20,4 @@ Developed by Kasun Thilina
 
 ##DEMO
 <br>
-<img src="demo.gif" width="250" height="250"/>
+<img src="demo.gif" width="222" height="480"/>
